@@ -14,7 +14,7 @@
                   <span class="text-red-500">Play for keeps!</span>
                 </h2>
                 <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  Compete for real money playing <b>videos games</b> againts others across the glode on the <span class="text-yellow-200">Sports & Gunplay</span> platform
+                  Compete for real money playing <b>videos games</b> againts others across the glode on the <span class="text-yellow-200">iWagerGames</span> platform
                 </p>
                 <p class="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">On your favorite platforms:</p>
                 <div class="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
@@ -36,7 +36,7 @@
               <div class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
                 <div class="px-4 py-8 sm:px-10">
                   <p class="text-lg leading-5 font-medium text-gray-700">
-                    Sign up for Sports & Gunplay
+                    Sign up for iWagerGames
                   </p>
 
                   <div class="mt-6">
@@ -106,7 +106,7 @@
               How does it work?
             </h4>
             <p class="mt-3 text-xl leading-7 text-gray-500">
-              Competing for money on Sports & Gunplay is easy. Follow the steps below:
+              Competing for money on iWagerGames is easy. Follow the steps below:
             </p>
 
             <ul class="mt-10">

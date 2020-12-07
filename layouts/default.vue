@@ -112,10 +112,10 @@
           </a>
         </div>
         <p class="mt-8 text-center text-base leading-6 text-gray-400">
-          &copy; 2020 Sports & Gunplay. All rights reserved.
+          &copy; 2020 iWagerGames. All rights reserved.
         </p>
         <p class="text-base leading-6 text-gray-600">
-          Sports & Gunplay is not endorsed by, directly affiliated with, maintained or sponsored by Apple Inc, Electronic Arts, Activision Blizzard, Take-Two Interactive, Microsoft, Xbox, Sony, Playstation or Epic Games. All content, games titles, trade names and/or trade dress, trademarks, artwork and associated imagery are trademarks and/or copyright material of their respective owners.
+          iWagerGames is not endorsed by, directly affiliated with, maintained or sponsored by Apple Inc, Electronic Arts, Activision Blizzard, Take-Two Interactive, Microsoft, Xbox, Sony, Playstation or Epic Games. All content, games titles, trade names and/or trade dress, trademarks, artwork and associated imagery are trademarks and/or copyright material of their respective owners.
         </p>
       </div>
     </footer>

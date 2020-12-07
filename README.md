@@ -1,4 +1,4 @@
-# SportsAndGunPlay-website
+# iWagerGames-website
 
 ## Build Setup
 
