@@ -14,7 +14,7 @@
                   <span class="text-red-500">Play for keeps!</span>
                 </h2>
                 <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
-                  Compete for real money playing <b>videos games</b> againts others across the glode on the <span class="text-yellow-200">iWagerGames</span> platform
+                  Compete and wager for real money playing <b>videos games</b> againts others across the glode on the <span class="text-yellow-200">iWagerGames</span> platform
                 </p>
                 <p class="mt-8 text-sm text-white uppercase tracking-wide font-semibold sm:mt-10">On your favorite platforms:</p>
                 <div class="mt-5 w-full sm:mx-auto sm:max-w-lg lg:ml-0">
