@@ -17,7 +17,7 @@ var signOut = async function(store, router) {
 }
 
 var _signIn = async function(token) {
-	return fetch('http://api.iwagergames.com/user/authorize', {
+	return fetch('https://api.iwagergames.com/user/authorize', {
 		method: 'POST',
 		headers: { 'Authorization': 'Bearer ' + token }
 	})

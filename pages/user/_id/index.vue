@@ -44,7 +44,7 @@
       }
     },
 		async asyncData({ params }) {
-			return fetch('http://api.iwagergames.com/user/' + params.id, { method: 'GET' })
+			return fetch('https://api.iwagergames.com/user/' + params.id, { method: 'GET' })
 				.then((response) => { 
 					if (response.status == 200) {
 						return response.json()
