@@ -36,7 +36,7 @@
     computed: {
       isLoggedInUser: function() {
         var storedUser = this.$store.state.user;
-        return storedUser && storedUser._id == this.user?._id;
+        return (storedUser && storedUser._id) == this.user?._id;
       },
       userImageUrl: function() {
         var storedUser = this.$store.state.user;
