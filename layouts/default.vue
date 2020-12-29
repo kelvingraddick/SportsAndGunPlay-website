@@ -2,7 +2,7 @@
   <div>
 
     <!-- Header -->
-    <div class="relative bg-gray-800 overflow-hidden">
+    <div class="relative bg-gray-800">
       <div class="relative pt-4 pb-4">
         <nav class="relative max-w-screen-xl mx-auto flex items-center justify-between px-4 sm:px-6">
           <div class="flex items-center flex-1">
@@ -19,16 +19,25 @@
               </div>
             </div>
             <div class="hidden space-x-10 md:flex md:ml-10">
-              <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</a>
+              <NuxtLink to="/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</NuxtLink>
               <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</a>
               <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Games</a>
               <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Contact</a>
             </div>
           </div>
           <div class="hidden md:flex">
-            <a href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:shadow-outline-gray focus:border-yellow-300 active:bg-yellow-300 transition duration-150 ease-in-out">
-              Log in
-            </a>
+            <NuxtLink to="/signin" v-if="!user" href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:shadow-outline-gray focus:border-yellow-300 active:bg-yellow-300 transition duration-150 ease-in-out">
+              Sign in
+            </NuxtLink>
+            <button v-else id="user-button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-haspopup="true" @click.stop="isUserMenuOpen = !isUserMenuOpen">
+              <span class="sr-only">Open user menu</span>
+              <img class="h-12 w-12 rounded-full" :src="((user && user.imageUrl) || '/placeholder-user.png')" alt="">
+            </button>
+            <div v-show="isUserMenuOpen" class="origin-top-right absolute z-50 right-0 top-14 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-button">
+              <NuxtLink :to="('/user/' + (user && user._id))" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your profile</NuxtLink>
+              <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>-->
+              <a @click.stop="onSignOutButtonClick" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+            </div>
           </div>
         </nav>
         <div class="fixed z-50 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden" v-show="isNavigationDrawerOpen">
@@ -47,15 +56,24 @@
                 </div>
               </div>
               <div class="space-y-1 px-2 pt-2 pb-3">
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</a>
+                <NuxtLink to="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</NuxtLink>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</a>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Games</a>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Contact</a>
+                <div v-show="user">
+                  <NuxtLink :to="('/user/' + (user && user._id))" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your profile</NuxtLink>
+                  <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>-->
+                  <a @click.stop="onSignOutButtonClick" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
+                </div>
               </div>
               <div>
-                <a href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out" role="menuitem">
-                  Log in
-                </a>
+                <NuxtLink to="/signin" v-if="!user" href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out" role="menuitem">
+                  Sign in
+                </NuxtLink>
+                <button v-else id="user-button" class="px-5 py-3 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-haspopup="true">
+                  <span class="sr-only">Open user menu</span>
+                  <img class="h-12 w-12 rounded-full" :src="((user && user.imageUrl) || '/placeholder-user.png')" alt="">
+                </button>
               </div>
             </div>
           </div>
@@ -123,10 +141,33 @@
 </template>
 
 <script>
+  import Authorize from '@/helpers/authorize.js';
+
   export default {
     data () {
       return {
-        isNavigationDrawerOpen: false
+        isNavigationDrawerOpen: false,
+        isUserMenuOpen: false
+      }
+    },
+    computed: {
+      user: function() {
+        return this.$store.state.user;
+      }
+    },
+    watch: {
+      $route () {
+        this.isNavigationDrawerOpen = false;
+        this.isUserMenuOpen = false;
+      }
+    },
+    mounted: function() {
+      Authorize.trySignIn(this.$store);
+    },
+    methods: {
+      async onSignOutButtonClick() {
+        this.isUserMenuOpen = false;
+        await Authorize.signOut(this.$store, this.$router);
       }
     }
   }

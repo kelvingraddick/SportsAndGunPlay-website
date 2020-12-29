@@ -40,22 +40,22 @@
                   </p>
 
                   <div class="mt-6">
-                    <form action="#" method="POST" class="space-y-6">
+                    <div class="space-y-6">
                       <div>
-                        <label for="name" class="sr-only">
-                          Full name
+                        <label for="username" class="sr-only">
+                          Username
                         </label>
                         <div class="rounded-md shadow-sm">
-                          <input id="name" placeholder="Full name" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                          <input v-model="registration.username" id="username" placeholder="Username" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
                       </div>
 
                       <div>
-                        <label for="mobile-or-email" class="sr-only">
-                          Mobile number or email
+                        <label for="email-address" class="sr-only">
+                          Email address
                         </label>
                         <div class="rounded-md shadow-sm">
-                          <input id="mobile-or-email" placeholder="Mobile number or email" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                          <input v-model="registration.emailAddress" id="email-address" placeholder="Email address" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
                       </div>
 
@@ -64,18 +64,23 @@
                           Password
                         </label>
                         <div class="rounded-md shadow-sm">
-                          <input id="password" type="password" placeholder="Password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                          <input v-model="registration.password" id="password" type="password" placeholder="Password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
                         </div>
                       </div>
 
                       <div>
                         <span class="block w-full rounded-md shadow-sm">
-                          <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
-                            Create your account (coming soon)
+                          <button @click.stop="onRegisterButtonClick" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
+                            Create your account
                           </button>
                         </span>
                       </div>
-                    </form>
+
+                      <div v-for="errorMessage in this.registration.errorMessages" :key="errorMessage" class="">
+                        ⚠️ {{ errorMessage }}
+                      </div>
+
+                    </div>
                   </div>
                 </div>
                 <div class="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
@@ -313,7 +318,86 @@
 </template>
 
 <script>
-export default {}
+export default {
+  components: {
+  },
+  data: function() {
+    return {
+      isProcessing: false,
+      registration: {
+        username: null,
+        emailAddress: null,
+        password: null,
+        errorMessages: []
+      }
+    }
+  },
+  methods: {
+    async onRegisterButtonClick() {
+      this.validateRegistration();
+      if (this.registration.errorMessages.length == 0) {
+        this.isProcessing = true;
+        var response = await this.register();
+        if (response) {
+          if (response.isSuccess) {
+            this.$store.commit('setToken', response.token);
+            this.$store.commit('setUser', response.user);
+            localStorage.setItem('TOKEN', response.token);
+            this.$router.push({ path: '/user/' + response.user._id });
+          } else {
+            window.alert(response.errorMessage);
+            this.isProcessing = false;
+          }
+        } else {
+          var errorMessage = "There was an error signing up." + " Please update entries and try again";
+          window.alert(errorMessage);
+          this.isProcessing = false;
+        }
+      }
+      return false;
+    },
+    validateRegistration() {
+      this.registration.errorMessages = [];
+
+      var username = this.registration.username;
+      if (!username || username == '' || username.length < 2 || username.length > 30 || !username.match(/^[0-9a-zA-Z]+$/)) {
+        this.registration.errorMessages.push('The username must be an alphanumeric value between 2 and 30 characters.');
+      }
+
+      var emailAddress = this.registration.emailAddress;
+      if (!emailAddress  || emailAddress  == '' || emailAddress .length < 8 || emailAddress.length > 30 || !emailAddress.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        this.registration.errorMessages.push('The email address must be valid and between 8 and 30 characters.');
+      }
+
+      var password = this.registration.password;
+      if (!password  || password  == '' || password.length < 8 || password.length > 100) {
+        this.registration.errorMessages.push('The password must be between 8 and 100 characters.');
+      }
+    },
+    async register() {
+      var body = this.registration;
+      return fetch('https://api.iwagergames.com/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then((response) => { 
+        if (response.status == 200) {
+          return response.json()
+          .then((responseJson) => {
+            return responseJson;
+          })
+        } else {
+          return undefined;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        return undefined;
+      });
+    }
+  }
+}
 </script>
 
 <style>
