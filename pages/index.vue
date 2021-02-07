@@ -206,84 +206,33 @@
           </p>
         </div>
         <div class="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
-          <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
+          <div v-for="game in games" :key="game._id" class="flex flex-col rounded-lg shadow-lg overflow-hidden">
             <div class="flex-shrink-0">
-              <img class="h-48 w-full object-cover" src="/madden-21.png" alt="">
+              <img class="h-48 w-full object-cover" :src="game.bannerImageUrl" alt="">
             </div>
             <div class="flex-1 bg-white p-6 flex flex-col justify-between">
               <div class="flex-1">
                 <p class="text-sm leading-5 font-medium text-indigo-600">
-                  <a href="#" class="hover:underline">
-                    Playstation 4 | Xbox One | PC
-                  </a>
+                  <template v-for="(platformId, index) in game.platforms">
+                    <template v-if="index > 0"> | </template>
+                    <a href="#" class="hover:underline" :key="platformId">
+                      {{ getPlatformName(platformId) }}
+                    </a>
+                  </template>
                 </p>
                 <a href="#" class="block">
                   <h3 class="mt-2 text-xl leading-7 font-semibold text-gray-900">
-                    Madden 21
+                    {{ game.name }}
                   </h3>
                   <p class="mt-3 text-base leading-6 text-gray-500">
-                    Madden NFL 21 is an American football video game based on the National Football League, developed by EA Tiburon and published by Electronic Arts.
+                    {{ game.description }}
                   </p>
                 </a>
               </div>
               <div class="mt-6 flex items-center">
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
+                <NuxtLink :to="'/game/' + game._id + '/'" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
                   Join the game room
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
-            <div class="flex-shrink-0">
-              <img class="h-48 w-full object-cover" src="/nba-2k21.png" alt="">
-            </div>
-            <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-              <div class="flex-1">
-                <p class="text-sm leading-5 font-medium text-indigo-600">
-                  <a href="#" class="hover:underline">
-                    Playstation 4 | Xbox One | PC
-                  </a>
-                </p>
-                <a href="#" class="block">
-                  <h3 class="mt-2 text-xl leading-7 font-semibold text-gray-900">
-                    NBA 2K21
-                  </h3>
-                  <p class="mt-3 text-base leading-6 text-gray-500">
-                    NBA 2K21 is a basketball simulation video game that was developed by Visual Concepts and published by 2K Sports, based on the National Basketball Association.
-                  </p>
-                </a>
-              </div>
-              <div class="mt-6 flex items-center">
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
-                  Join the game room
-                </button>
-              </div>
-            </div>
-          </div>
-          <div class="flex flex-col rounded-lg shadow-lg overflow-hidden">
-            <div class="flex-shrink-0">
-              <img class="h-48 w-full object-cover" src="/call-of-duty-modern-warfare.jpg" alt="">
-            </div>
-            <div class="flex-1 bg-white p-6 flex flex-col justify-between">
-              <div class="flex-1">
-                <p class="text-sm leading-5 font-medium text-indigo-600">
-                  <a href="#" class="hover:underline">
-                    Playstation 4 | Xbox One | PC
-                  </a>
-                </p>
-                <a href="#" class="block">
-                  <h3 class="mt-2 text-xl leading-7 font-semibold text-gray-900">
-                    Call of Duty: Modern Warfare
-                  </h3>
-                  <p class="mt-3 text-base leading-6 text-gray-500">
-                    Call of Duty: Modern Warfare is a 2019 first-person shooter video game developed by Infinity Ward and published by Activision.
-                  </p>
-                </a>
-              </div>
-              <div class="mt-6 flex items-center">
-                <button type="submit" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
-                  Join the game room
-                </button>
+                </NuxtLink>
               </div>
             </div>
           </div>
@@ -318,11 +267,14 @@
 </template>
 
 <script>
+import Platforms from '@/constants/platforms.js';
+
 export default {
   components: {
   },
   data: function() {
     return {
+      games: null,
       isProcessing: false,
       registration: {
         username: null,
@@ -332,7 +284,28 @@ export default {
       }
     }
   },
+  async asyncData({ params }) {
+    return fetch('https://api.iwagergames.com/games/', { method: 'GET' })
+      .then((response) => { 
+        if (response.status == 200) {
+          return response.json()
+          .then((responseJson) => {
+            if (responseJson.isSuccess) {
+              return { games: responseJson.games };
+            }
+          })
+        }
+        return undefined;
+      })
+      .catch((error) => {
+        console.error(error);
+        return undefined;
+      });
+  },
   methods: {
+    getPlatformName(id) {
+      return Platforms[id];
+    },
     async onRegisterButtonClick() {
       this.validateRegistration();
       if (this.registration.errorMessages.length == 0) {

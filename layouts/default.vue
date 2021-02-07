@@ -21,7 +21,7 @@
             <div class="hidden space-x-10 md:flex md:ml-10">
               <NuxtLink to="/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</NuxtLink>
               <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</a>
-              <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Games</a>
+              <NuxtLink to="/games/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Games</NuxtLink>
               <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Contact</a>
             </div>
           </div>
@@ -58,7 +58,7 @@
               <div class="space-y-1 px-2 pt-2 pb-3">
                 <NuxtLink to="/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</NuxtLink>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</a>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Games</a>
+                <NuxtLink to="/games/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Games</NuxtLink>
                 <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Contact</a>
                 <div v-show="user">
                   <NuxtLink :to="('/user/' + (user && user._id))" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your profile</NuxtLink>
@@ -89,9 +89,9 @@
       <div class="max-w-screen-xl mx-auto py-12 px-4 overflow-hidden space-y-8 sm:px-6 lg:px-8">
         <nav class="-mx-5 -my-2 flex flex-wrap justify-center">
           <div class="px-5 py-2">
-            <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
+            <NuxtLink to="/" href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
               Home
-            </a>
+            </NuxtLink>
           </div>
           <div class="px-5 py-2">
             <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
@@ -99,9 +99,9 @@
             </a>
           </div>
           <div class="px-5 py-2">
-            <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
+            <NuxtLink to="/games/" class="text-base leading-6 text-gray-500 hover:text-gray-900">
               Games
-            </a>
+            </NuxtLink>
           </div>
           <div class="px-5 py-2">
             <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
