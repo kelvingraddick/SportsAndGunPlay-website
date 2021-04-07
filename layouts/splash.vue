@@ -18,26 +18,6 @@
                 </button>
               </div>
             </div>
-            <div class="hidden space-x-10 md:flex md:ml-10">
-              <NuxtLink to="/home/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Home</NuxtLink>
-              <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">About</a>
-              <NuxtLink to="/games/" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Games</NuxtLink>
-              <a href="#" class="font-medium text-white hover:text-gray-300 transition duration-150 ease-in-out">Contact</a>
-            </div>
-          </div>
-          <div class="hidden md:flex">
-            <NuxtLink to="/signin" v-if="!user" href="#" class="inline-flex items-center px-4 py-2 border border-transparent text-sm leading-5 font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:shadow-outline-gray focus:border-yellow-300 active:bg-yellow-300 transition duration-150 ease-in-out">
-              Sign in
-            </NuxtLink>
-            <button v-else id="user-button" class="bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-haspopup="true" @click.stop="isUserMenuOpen = !isUserMenuOpen">
-              <span class="sr-only">Open user menu</span>
-              <img class="h-12 w-12 rounded-full" :src="((user && user.imageUrl) || '/placeholder-user.png')" alt="">
-            </button>
-            <div v-show="isUserMenuOpen" class="origin-top-right absolute z-50 right-0 top-14 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5" role="menu" aria-orientation="vertical" aria-labelledby="user-button">
-              <NuxtLink :to="('/user/' + (user && user._id))" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your profile</NuxtLink>
-              <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>-->
-              <a @click.stop="onSignOutButtonClick" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
-            </div>
           </div>
         </nav>
         <div class="fixed z-50 top-0 inset-x-0 p-2 transition transform origin-top-right md:hidden" v-show="isNavigationDrawerOpen">
@@ -55,26 +35,6 @@
                   </button>
                 </div>
               </div>
-              <div class="space-y-1 px-2 pt-2 pb-3">
-                <NuxtLink to="/home/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Home</NuxtLink>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">About</a>
-                <NuxtLink to="/games/" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Games</NuxtLink>
-                <a href="#" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:text-gray-900 hover:bg-gray-50 focus:outline-none focus:text-gray-900 focus:bg-gray-50 transition duration-150 ease-in-out" role="menuitem">Contact</a>
-                <div v-show="user">
-                  <NuxtLink :to="('/user/' + (user && user._id))" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Your profile</NuxtLink>
-                  <!--<a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Settings</a>-->
-                  <a @click.stop="onSignOutButtonClick" href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" role="menuitem">Sign out</a>
-                </div>
-              </div>
-              <div>
-                <NuxtLink to="/signin" v-if="!user" href="#" class="block w-full px-5 py-3 text-center font-medium text-indigo-600 bg-gray-50 hover:bg-gray-100 hover:text-indigo-700 focus:outline-none focus:bg-gray-100 focus:text-indigo-700 transition duration-150 ease-in-out" role="menuitem">
-                  Sign in
-                </NuxtLink>
-                <button v-else id="user-button" class="px-5 py-3 bg-gray-800 flex text-sm rounded-full focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white" aria-haspopup="true">
-                  <span class="sr-only">Open user menu</span>
-                  <img class="h-12 w-12 rounded-full" :src="((user && user.imageUrl) || '/placeholder-user.png')" alt="">
-                </button>
-              </div>
             </div>
           </div>
         </div>
@@ -87,28 +47,6 @@
     <!-- Footer -->
     <footer class="bg-white">
       <div class="max-w-screen-xl mx-auto py-12 px-4 overflow-hidden space-y-8 sm:px-6 lg:px-8">
-        <nav class="-mx-5 -my-2 flex flex-wrap justify-center">
-          <div class="px-5 py-2">
-            <NuxtLink to="/home/" href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Home
-            </NuxtLink>
-          </div>
-          <div class="px-5 py-2">
-            <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
-              About
-            </a>
-          </div>
-          <div class="px-5 py-2">
-            <NuxtLink to="/games/" class="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Games
-            </NuxtLink>
-          </div>
-          <div class="px-5 py-2">
-            <a href="#" class="text-base leading-6 text-gray-500 hover:text-gray-900">
-              Contact
-            </a>
-          </div>
-        </nav>
         <div class="mt-8 flex justify-center space-x-6">
           <a href="#" class="text-gray-400 hover:text-gray-500">
             <span class="sr-only">Facebook</span>

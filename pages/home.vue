@@ -9,9 +9,9 @@
             <div class="px-4 sm:px-6 sm:text-center md:max-w-2xl md:mx-auto lg:col-span-6 lg:text-left lg:flex lg:items-center">
               <div>
                 <h2 class="mt-4 text-4xl tracking-tight leading-10 font-extrabold text-white sm:mt-5 sm:leading-none sm:text-6xl lg:mt-6 lg:text-5xl xl:text-6xl">
-                  iWagerGames!
+                  Raise the stakes!
                   <br class="hidden md:inline">
-                  <span class="text-red-500">Coming soon!</span>
+                  <span class="text-red-500">Play for keeps!</span>
                 </h2>
                 <p class="mt-3 text-base text-gray-300 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">
                   Compete and wager for real money playing <b>videos games</b> againts others across the glode on the <span class="text-yellow-200">iWagerGames</span> platform
@@ -29,6 +29,62 @@
                       <img class="platform-logos h-8 sm:h-9" src="/windows.png" alt="Windows">
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+            <div class="mt-12 sm:mt-16 lg:mt-0 lg:col-span-6">
+              <div class="bg-white sm:max-w-md sm:w-full sm:mx-auto sm:rounded-lg sm:overflow-hidden">
+                <div class="px-4 py-8 sm:px-10">
+                  <p class="text-lg leading-5 font-medium text-gray-700">
+                    Sign up for iWagerGames
+                  </p>
+
+                  <div class="mt-6">
+                    <div class="space-y-6">
+                      <div>
+                        <label for="username" class="sr-only">
+                          Username
+                        </label>
+                        <div class="rounded-md shadow-sm">
+                          <input v-model="registration.username" id="username" placeholder="Username" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        </div>
+                      </div>
+
+                      <div>
+                        <label for="email-address" class="sr-only">
+                          Email address
+                        </label>
+                        <div class="rounded-md shadow-sm">
+                          <input v-model="registration.emailAddress" id="email-address" placeholder="Email address" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        </div>
+                      </div>
+
+                      <div>
+                        <label for="password" class="sr-only">
+                          Password
+                        </label>
+                        <div class="rounded-md shadow-sm">
+                          <input v-model="registration.password" id="password" type="password" placeholder="Password" required class="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5">
+                        </div>
+                      </div>
+
+                      <div>
+                        <span class="block w-full rounded-md shadow-sm">
+                          <button @click.stop="onRegisterButtonClick" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
+                            Create your account
+                          </button>
+                        </span>
+                      </div>
+
+                      <div v-for="errorMessage in this.registration.errorMessages" :key="errorMessage" class="">
+                        ⚠️ {{ errorMessage }}
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="px-4 py-6 bg-gray-50 border-t-2 border-gray-200 sm:px-10">
+                  <p class="text-xs leading-5 text-gray-500">By signing up, you agree to our <a href="#" class="font-medium text-gray-900 hover:underline">Terms</a>, <a href="#" class="font-medium text-gray-900 hover:underline">Data Policy</a> and <a href="#" class="font-medium text-gray-900 hover:underline">Cookies Policy</a>.</p>
                 </div>
               </div>
             </div>
@@ -52,7 +108,7 @@
         <div class="relative lg:grid lg:grid-cols-2 lg:gap-8 lg:items-center">
           <div class="relative">
             <h4 class="text-3xl leading-8 font-extrabold text-gray-900 tracking-tight sm:text-4xl sm:leading-9">
-              How will it work?
+              How does it work?
             </h4>
             <p class="mt-3 text-xl leading-7 text-gray-500">
               Competing for money on iWagerGames is easy. Follow the steps below:
@@ -143,10 +199,10 @@
       <div class="relative max-w-7xl mx-auto">
         <div class="text-center">
           <h2 class="text-3xl leading-9 tracking-tight font-extrabold text-gray-900 sm:text-4xl sm:leading-10">
-            Future games
+            Join a game room
           </h2>
           <p class="mt-3 max-w-2xl mx-auto text-xl leading-7 text-gray-500 sm:mt-4">
-            When iWagerGames launches you'll be able to join one of our game rooms!
+            Join one of our game rooms to get started and join the action!
           </p>
         </div>
         <div class="mt-12 grid gap-5 max-w-lg mx-auto lg:grid-cols-3 lg:max-w-none">
@@ -173,6 +229,11 @@
                   </p>
                 </a>
               </div>
+              <div class="mt-6 flex items-center">
+                <NuxtLink :to="'/game/' + game._id + '/'" class="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-gray-700 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:border-yellow-300 focus:shadow-outline-red active:bg-yellow-300 transition duration-150 ease-in-out">
+                  Join the game room
+                </NuxtLink>
+              </div>
             </div>
           </div>
         </div>
@@ -183,9 +244,22 @@
     <div class="bg-gray-900">
       <div class="max-w-2xl mx-auto text-center py-16 px-4 sm:py-20 sm:px-6 lg:px-8">
         <h2 class="text-3xl leading-9 font-extrabold text-white sm:text-4xl sm:leading-10">
-          <span class="block">iWagerGames</span>
-          <span class="block text-red-500">Coming soon!</span>
+          <span class="block">Ready to start playing?</span>
+          <span class="block">Get started here.</span>
         </h2>
+        <p class="mt-4 text-lg leading-6 text-gray-300"><span class="text-red-500">Sign up</span> or <span class="text-yellow-200">learn more</span> information below.</p>
+        <div class="mt-8 flex justify-center">
+          <div class="inline-flex rounded-md shadow">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-red-500 hover:bg-red-400 focus:outline-none focus:shadow-outline transition duration-150 ease-in-out">
+              Sign up
+            </a>
+          </div>
+          <div class="ml-3 inline-flex">
+            <a href="#" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-gray-900 bg-yellow-200 hover:bg-yellow-100 focus:outline-none focus:shadow-outline focus:border-yellow-300 transition duration-150 ease-in-out">
+              Learn more
+            </a>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -196,12 +270,18 @@
 import Platforms from '@/constants/platforms.js';
 
 export default {
-  layout: 'splash',
   components: {
   },
   data: function() {
     return {
-      games: null
+      games: null,
+      isProcessing: false,
+      registration: {
+        username: null,
+        emailAddress: null,
+        password: null,
+        errorMessages: []
+      }
     }
   },
   async asyncData({ params }) {
@@ -225,6 +305,69 @@ export default {
   methods: {
     getPlatformName(id) {
       return Platforms[id];
+    },
+    async onRegisterButtonClick() {
+      this.validateRegistration();
+      if (this.registration.errorMessages.length == 0) {
+        this.isProcessing = true;
+        var response = await this.register();
+        if (response) {
+          if (response.isSuccess) {
+            this.$store.commit('setToken', response.token);
+            this.$store.commit('setUser', response.user);
+            localStorage.setItem('TOKEN', response.token);
+            this.$router.push({ path: '/user/' + response.user._id });
+          } else {
+            window.alert(response.errorMessage);
+            this.isProcessing = false;
+          }
+        } else {
+          var errorMessage = "There was an error signing up." + " Please update entries and try again";
+          window.alert(errorMessage);
+          this.isProcessing = false;
+        }
+      }
+      return false;
+    },
+    validateRegistration() {
+      this.registration.errorMessages = [];
+
+      var username = this.registration.username;
+      if (!username || username == '' || username.length < 2 || username.length > 30 || !username.match(/^[0-9a-zA-Z]+$/)) {
+        this.registration.errorMessages.push('The username must be an alphanumeric value between 2 and 30 characters.');
+      }
+
+      var emailAddress = this.registration.emailAddress;
+      if (!emailAddress  || emailAddress  == '' || emailAddress .length < 8 || emailAddress.length > 30 || !emailAddress.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/)) {
+        this.registration.errorMessages.push('The email address must be valid and between 8 and 30 characters.');
+      }
+
+      var password = this.registration.password;
+      if (!password  || password  == '' || password.length < 8 || password.length > 100) {
+        this.registration.errorMessages.push('The password must be between 8 and 100 characters.');
+      }
+    },
+    async register() {
+      var body = this.registration;
+      return fetch('https://api.iwagergames.com/user/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body)
+      })
+      .then((response) => { 
+        if (response.status == 200) {
+          return response.json()
+          .then((responseJson) => {
+            return responseJson;
+          })
+        } else {
+          return undefined;
+        }
+      })
+      .catch((error) => {
+        console.error(error);
+        return undefined;
+      });
     }
   }
 }
