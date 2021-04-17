@@ -54,42 +54,6 @@
                       <span class="text-gray-900 text-sm font-medium">Created on <time datetime="2020-12-02">Dec 2, 2020</time></span>
                     </div>
                   </div>
-                  <div class="mt-6 border-t border-b border-gray-200 py-6 space-y-8">
-                    <div>
-                      <h2 class="text-sm font-medium text-gray-500">Assignees</h2>
-                      <ul class="mt-3 space-y-3">
-                        <li class="flex justify-start">
-                          <a href="#" class="flex items-center space-x-3">
-                            <div class="flex-shrink-0">
-                              <img class="h-5 w-5 rounded-full" src="https://images.unsplash.com/photo-1520785643438-5bf77931f493?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="">
-                            </div>
-                            <div class="text-sm font-medium text-gray-900">Eduardo Benz</div>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                    <div>
-                      <h2 class="text-sm font-medium text-gray-500">Tags</h2>
-                      <ul class="mt-2 leading-8">
-                        <li class="inline">
-                          <a href="#" class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-0.5">
-                            <div class="absolute flex-shrink-0 flex items-center justify-center">
-                              <span class="h-1.5 w-1.5 rounded-full bg-rose-500" aria-hidden="true"></span>
-                            </div>
-                            <div class="ml-3.5 text-sm font-medium text-gray-900">Sports</div>
-                          </a>
-                        </li>
-                        <li class="inline">
-                          <a href="#" class="relative inline-flex items-center rounded-full border border-gray-300 px-3 py-0.5">
-                            <div class="absolute flex-shrink-0 flex items-center justify-center">
-                              <span class="h-1.5 w-1.5 rounded-full bg-indigo-500" aria-hidden="true"></span>
-                            </div>
-                            <div class="ml-3.5 text-sm font-medium text-gray-900">Game</div>
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
                 </aside>
                 <div class="py-3 xl:pt-6 xl:pb-0">
                   <h2 class="sr-only">Description</h2>
@@ -109,6 +73,23 @@
                             </div>
                             <div class="text-sm text-gray-500 truncate">
                               {{ mode.description }}
+                            </div>
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="pb-4">
+                      <h4 id="activity-title" class="text-lg font-medium text-gray-900">Rule Options</h4>
+                    </div>
+                    <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+                      <div class="relative rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm flex items-center space-x-3 hover:border-gray-400 focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500" v-for="rule in game.rules" :key="rule._id">
+                        <div class="flex-1 min-w-0">
+                          <a href="#" class="focus:outline-none">
+                            <div class="text-sm font-medium text-gray-900">
+                              {{ rule.name }}
+                            </div>
+                            <div class="text-sm text-gray-500 truncate">
+                              {{ rule.description }}
                             </div>
                           </a>
                         </div>
